@@ -1,3 +1,6 @@
+from singly_linked_list.singly_linked_list import LinkedList
+
+
 class Heap:
     # defaults to a max heap if no comparator is specified
     def __init__(self, comparator=lambda x, y: x > y):

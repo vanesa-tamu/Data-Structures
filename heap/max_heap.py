@@ -1,3 +1,6 @@
+from singly_linked_list.singly_linked_list import LinkedList
+
+
 class Heap:
     def __init__(self):
         self.storage = []
