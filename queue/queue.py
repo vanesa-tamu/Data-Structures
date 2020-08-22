@@ -32,7 +32,7 @@ class Queue:
         if self.size == 0:
             return None
         else:
-            self.storage.remove_head() # remove most recent addition to head
+            self.storage.remove_head()  # remove most recent addition to head
             self.size -= 1
 
 # With Array as storage:

@@ -26,7 +26,7 @@ class LinkedList:
             self.head = new_head
             self.tail = new_head
         # Check if single node in list
-        if self.head == self.tail:
+        elif self.head == self.tail:
             old_head = self.head  # evaluates to node 1 value
             # change head to new node value
             self.head = new_head
@@ -143,11 +143,11 @@ class LinkedList:
 
 # Add Head
 
-# ll2 = LinkedList()
-# print(ll2)
-# ll2.add_to_head(1)
-# print(ll2)
-# ll2.add_to_head(100)
-# print(ll2)
-# ll2.add_to_head(1000)
-# print(ll2)
+ll2 = LinkedList()
+print(ll2)
+ll2.add_to_head(1)
+print(ll2)
+ll2.add_to_head(100)
+print(ll2)
+ll2.add_to_head(1000)
+print(ll2)
