@@ -181,10 +181,12 @@ class DoublyLinkedList:
     Removes the input node from its current spot in the 
     List and inserts it as the new head node of the List.
     """
+    # checks if a node value exists in list
     def is_in_list(self, node):
         old_head = self.head
         # iterate through list until find matching node or reach end of list
-        while node != old_head.value and old_head != self.tail:
+        # first case is for when list is empty and head and tail equal none (and have no value)
+        while old_head is not None and old_head != old_head.value and old_head != self.tail:
             old_head = old_head.next
         if node == old_head.value:
             return True
@@ -197,7 +199,11 @@ class DoublyLinkedList:
         # need to check if input node is within the List
         old_head = self.head
 
-        # need to check the spot of the inputed node?
+        if self.is_in_list(node):
+            # can just delete node and move to front from here
+            pass
+        else:
+            return f'{node} is not in list'
         # if only one node, no change happens
         # if 2 nodes, the tail and head switch places
         # if 3+ nodes, head will need to be updated
@@ -216,7 +222,29 @@ class DoublyLinkedList:
     order of the other elements of the List.
     """
     def delete(self, node):
-        pass
+        if self.is_in_list(node):
+            # node is the only on in list
+            if self.head == self.tail:
+                old_head = self.head
+                # point prev and next node to None
+                old_head.prev = None
+                old_head.next = None
+                # update head and tail
+                self.head = None
+                self.tail = None
+                # update length
+                self.length -= 1
+            # node is the head
+            elif self.head.value == node:
+                self.remove_from_head()
+            # node is the tail
+            elif self.tail.value == node:
+                self.remove_from_tail()
+            # node is between head and tail
+            else:
+                pass
+        else:
+            return f'{node} is not in list'
 
     """
     Finds and returns the maximum value of all the nodes 
@@ -280,5 +308,15 @@ ll4 = DoublyLinkedList()
 ll4.add_to_head(50)
 ll4.add_to_head(15)
 ll4.add_to_head(35)  # 35 - 15 - 50
-print(ll4.is_in_list(50))  # True
+# print(ll4.is_in_list(50))  # True
+# print(ll4.move_to_front(50))  # True
+print(ll4)
+print(f'deleting head: {ll4.delete(35)}')  # returns none but success!
+print(ll4)
+print(f'deleting tail: {ll4.delete(50)}')  # returns none but success!
+print(ll4)
+print(f'deleting only node: {ll4.delete(15)}')  # returns none but success!
+print(ll4)
+
+print(f'deleting only node: {ll4.delete(15)}')  # returns none but success!
 print(ll4)
