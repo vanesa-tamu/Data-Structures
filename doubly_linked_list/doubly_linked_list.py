@@ -181,8 +181,28 @@ class DoublyLinkedList:
     Removes the input node from its current spot in the 
     List and inserts it as the new head node of the List.
     """
+    def is_in_list(self, node):
+        old_head = self.head
+        # iterate through list until find matching node or reach end of list
+        while node != old_head.value and old_head != self.tail:
+            old_head = old_head.next
+        if node == old_head.value:
+            return True
+        else:
+            return False
+        # return f'old head is {old_head.value} and node is {node}'
+
     def move_to_front(self, node):
-        pass
+        # length never changes (by def.)
+        # need to check if input node is within the List
+        old_head = self.head
+
+        # need to check the spot of the inputed node?
+        # if only one node, no change happens
+        # if 2 nodes, the tail and head switch places
+        # if 3+ nodes, head will need to be updated
+        # if input node = tail node, then need to update tail too
+        # pass
         
     """
     Removes the input node from its current spot in the 
@@ -254,3 +274,11 @@ class DoublyLinkedList:
 # print(ll4.remove_from_tail())  # 35 removed
 # print(ll4)
 
+# Move to front
+
+ll4 = DoublyLinkedList()
+ll4.add_to_head(50)
+ll4.add_to_head(15)
+ll4.add_to_head(35)  # 35 - 15 - 50
+print(ll4.is_in_list(50))  # True
+print(ll4)
