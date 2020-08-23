@@ -184,14 +184,25 @@ class DoublyLinkedList:
     # checks if a node value exists in list
     def is_in_list(self, node):
         old_head = self.head
+        print(f'i old_head: {old_head}')
         # iterate through list until find matching node or reach end of list
         # first case is for when list is empty and head and tail equal none (and have no value)
-        while old_head is not None and old_head != old_head.value and old_head != self.tail:
+        # while old_head.value != node and old_head is not None and
+        # old_head != old_head.value and old_head != self.tail:
+        while self.length != 0 and old_head is not None and old_head.value != node and old_head != self.tail:
             old_head = old_head.next
-        if node == old_head.value:
+            print(f'f old_head: {old_head}')
+        if old_head is None:
+            return False
+        elif node == old_head.value:
             return True
         else:
             return False
+
+        # if node == old_head.value:
+        #     return True
+        # else:
+        #     return False
         # return f'old head is {old_head.value} and node is {node}'
 
     def move_to_front(self, node):
@@ -308,9 +319,10 @@ ll4 = DoublyLinkedList()
 ll4.add_to_head(50)
 ll4.add_to_head(15)
 ll4.add_to_head(35)  # 35 - 15 - 50
-# print(ll4.is_in_list(50))  # True
+print(ll4.is_in_list(5))  # True
 # print(ll4.move_to_front(50))  # True
 print(ll4)
+
 print(f'deleting head: {ll4.delete(35)}')  # returns none but success!
 print(ll4)
 print(f'deleting tail: {ll4.delete(50)}')  # returns none but success!
@@ -318,5 +330,8 @@ print(ll4)
 print(f'deleting only node: {ll4.delete(15)}')  # returns none but success!
 print(ll4)
 
-print(f'deleting only node: {ll4.delete(15)}')  # returns none but success!
+print(f'deleting from empty list: {ll4.delete(600)}')  # returns 15 is not in list
+print(ll4)
+
+print(f'deleting from empty list: {ll4.delete(900)}')  # returns 15 is not in list
 print(ll4)
