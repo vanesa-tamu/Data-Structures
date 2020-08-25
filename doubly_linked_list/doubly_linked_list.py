@@ -237,6 +237,7 @@ class DoublyLinkedList:
             # node is the only one in the list
             if self.head == self.tail:
                 self.remove_from_head()
+                return node.value
                 # old_head = self.head
                 # # point prev and next node to None
                 # old_head.prev = None
@@ -279,7 +280,26 @@ class DoublyLinkedList:
     in the List.
     """
     def get_max(self):
-        pass
+        # edge cases: emtpy list, one node in list
+        # set initially has the head value
+        # afterwards compare node.next.value
+        if self.head is None:
+            return None
+        elif self.head == self.tail:
+            return self.head.value
+        else:
+            # current node variable to iterate
+            current_node = self.head
+            # need a current_max variable
+            current_max = self.head.value
+
+            while current_node is not None:
+                # compare
+                if current_max < current_node.value:
+                    current_max = current_node.value
+                # continue to next node to compare
+                current_node = current_node.next
+            return current_max
 
 
 # Add to head:
@@ -394,3 +414,10 @@ class DoublyLinkedList:
 
 
 # find max
+# ll9 = DoublyLinkedList()
+# print(ll9.get_max())  # None
+# ll9.add_to_head(0)
+# print(ll9.get_max())  # 0
+# ll9.add_to_head(101)
+# print(f'{ll9} \n')
+# print(ll9.get_max())  # 101
