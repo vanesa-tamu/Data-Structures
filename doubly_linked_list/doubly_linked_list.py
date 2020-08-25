@@ -184,35 +184,30 @@ class DoublyLinkedList:
     # checks if a node value exists in list
     def is_in_list(self, node):
         old_head = self.head
-        print(f'i old_head: {old_head}')
+        # print(f'i old_head: {old_head}')
         # iterate through list until find matching node or reach end of list
         # first case is for when list is empty and head and tail equal none (and have no value)
         # while old_head.value != node and old_head is not None and
         # old_head != old_head.value and old_head != self.tail:
-        while self.length != 0 and old_head is not None and old_head.value != node and old_head != self.tail:
+        while self.length != 0 and old_head is not None and old_head.value != node.value and old_head != self.tail:
             old_head = old_head.next
-            print(f'f old_head: {old_head}')
+            # print(f'f old_head: {old_head}')
         if old_head is None:
             return False
-        elif node == old_head.value:
+        # fixed from node to node.value (to fix delte method)
+        elif node.value == old_head.value:
             return True
         else:
             return False
 
-        # if node == old_head.value:
-        #     return True
-        # else:
-        #     return False
-        # return f'old head is {old_head.value} and node is {node}'
-
     def move_to_front(self, node):
         # length never changes (by def.)
         # need to check if input node is within the List
-        old_head = self.head
-
         if self.is_in_list(node):
             # can just delete node and move to front from here
-            pass
+            self.delete(node)
+            self.add_to_head(node.value)  # add_to_head takes in a value
+            return node.value
         else:
             return f'{node} is not in list'
         # if only one node, no change happens
@@ -226,34 +221,56 @@ class DoublyLinkedList:
     List and inserts it as the new tail node of the List.
     """
     def move_to_end(self, node):
-        pass
+        if self.is_in_list(node):
+            self.delete(node)
+            self.add_to_tail(node.value)
+        else:
+            return f'{node} is not in list'
 
     """
     Deletes the input node from the List, preserving the 
     order of the other elements of the List.
     """
-    def delete(self, node):
+    def delete(self, node: ListNode):
+        # print(node.prev)
         if self.is_in_list(node):
-            # node is the only on in list
+            # node is the only one in the list
             if self.head == self.tail:
-                old_head = self.head
-                # point prev and next node to None
-                old_head.prev = None
-                old_head.next = None
-                # update head and tail
-                self.head = None
-                self.tail = None
-                # update length
-                self.length -= 1
-            # node is the head
-            elif self.head.value == node:
                 self.remove_from_head()
+                # old_head = self.head
+                # # point prev and next node to None
+                # old_head.prev = None
+                # old_head.next = None
+                # # update head and tail
+                # self.head = None
+                # self.tail = None
+                # # update length
+                # self.length -= 1
+            # node is the head
+            elif self.head.value == node.value:
+                self.remove_from_head()
+                return node.value
             # node is the tail
-            elif self.tail.value == node:
+            elif self.tail.value == node.value:
                 self.remove_from_tail()
+                return node.value
             # node is between head and tail
             else:
-                pass
+                # get previous node:
+                previous_node = node.prev
+                # get next node
+                next_node = node.next
+                # assign previous_node to point to next_node:
+                previous_node.next = next_node
+                # assign next_node to point to back to previous_node:
+                next_node.prev = previous_node
+                # set node's next and previous pointers to None
+                node.prev = None
+                node.next = None
+                # decrement by 1
+                self.length -= 1
+                # return node.value that was deleted
+                return node.value
         else:
             return f'{node} is not in list'
 
@@ -264,9 +281,8 @@ class DoublyLinkedList:
     def get_max(self):
         pass
 
+
 # Add to head:
-
-
 # ll1 = DoublyLinkedList()
 # print(ll1)
 # ll1.add_to_head(1)
@@ -276,8 +292,8 @@ class DoublyLinkedList:
 # ll1.add_to_head(40)
 # print(ll1)
 
-# Remove head
 
+# Remove head
 # ll2 = DoublyLinkedList()
 # ll2.add_to_head(50)
 # ll2.add_to_head(15)
@@ -289,8 +305,6 @@ class DoublyLinkedList:
 
 
 # Add to tail:
-
-
 # ll3 = DoublyLinkedList()
 # print(ll3)
 # ll3.add_to_tail(1)
@@ -300,8 +314,8 @@ class DoublyLinkedList:
 # ll3.add_to_tail(40)
 # print(ll3)
 
-# Remove tail
 
+# Remove tail
 # ll4 = DoublyLinkedList()
 # ll4.add_to_head(50)
 # ll4.add_to_head(15)
@@ -313,25 +327,70 @@ class DoublyLinkedList:
 # print(ll4.remove_from_tail())  # 35 removed
 # print(ll4)
 
+
 # Move to front
+# ll4 = DoublyLinkedList()
+# ll4.add_to_head(50)
+# ll4.add_to_head(15)
+# ll4.add_to_head(35)  # 35 - 15 - 50
+# # print(ll4.move_to_front(50))  # True
+# print(ll4)
+# print(ll4.is_in_list(ll4.head))  # True
+# print(f'deleting head: {ll4.delete(35)}')  # returns none but success!
+# print(ll4)
+# print(f'deleting tail: {ll4.delete(50)}')  # returns none but success!
+# print(ll4)
+# print(f'deleting only node: {ll4.delete(15)}')  # returns none but success!
+# print(ll4)
+# print(f'deleting from empty list: {ll4.delete(600)}')  # returns 15 is not in list
+# print(ll4)
+# print(f'deleting from empty list: {ll4.delete(900)}')  # returns 15 is not in list
+# print(ll4)
 
-ll4 = DoublyLinkedList()
-ll4.add_to_head(50)
-ll4.add_to_head(15)
-ll4.add_to_head(35)  # 35 - 15 - 50
-print(ll4.is_in_list(5))  # True
-# print(ll4.move_to_front(50))  # True
-print(ll4)
 
-print(f'deleting head: {ll4.delete(35)}')  # returns none but success!
-print(ll4)
-print(f'deleting tail: {ll4.delete(50)}')  # returns none but success!
-print(ll4)
-print(f'deleting only node: {ll4.delete(15)}')  # returns none but success!
-print(ll4)
+# Delete
+# ll6 = DoublyLinkedList()
+# ll6.add_to_head(35)
+# ll5 = DoublyLinkedList()
+# ll5.add_to_head(5)
+# ll5.add_to_head(10)
+# ll5.add_to_head(9)
+# ll5.add_to_head(1)
+# ll5.add_to_head(3)  # 3 - 1 - 9 - 10 - 5
+# print(ll5.delete(ll5.tail))  # tail is now 10
+# print(f'{ll5}\n')  # length = 4
+# print(ll5.delete(ll5.head))  # head is now 1
+# print(f'{ll5}\n')  # length = 3
+# print(ll5.delete(ll6.head))  # 35 is not in list
+# print(ll5.delete(ll5.head.next))  # 9 deleted
+# print(f'{ll5}\n')  # length = 2
+#
+# print(ll5.delete(ll5.head))
+# print(f'{ll5}\n')
+#
+# print(ll5.delete(ll5.head))
+# print(f'{ll5}\n')
+#
+# print(ll5.delete(ll5.head))
+# print(f'{ll5}\n')
 
-print(f'deleting from empty list: {ll4.delete(600)}')  # returns 15 is not in list
-print(ll4)
 
-print(f'deleting from empty list: {ll4.delete(900)}')  # returns 15 is not in list
-print(ll4)
+# move to front
+# ll7 = DoublyLinkedList()
+# ll7.add_to_head(99)
+# ll7.add_to_head(90)
+# print(f'{ll7} \n')
+# print(ll7.move_to_front(ll7.tail))
+# print(f'{ll7} \n')
+
+
+# move to end
+# ll8 = DoublyLinkedList()
+# ll8.add_to_head(100)
+# ll8.add_to_head(190)
+# print(f'{ll8} \n')
+# print(ll8.move_to_end(ll8.head))
+# print(f'{ll8} \n')
+
+
+# find max
