@@ -13,6 +13,9 @@ class LinkedList:
         self.tail: Node = None  # Points to the last node in the list
         self.length = 0
 
+    def __len__(self):
+        return self.length
+
     def __str__(self):
         return f'\n Head: {self.head} \n Tail: {self.tail} \n Length: {self.length} \n'
 
@@ -78,10 +81,10 @@ class LinkedList:
             return current_head.value
         # If head (General case):
         else:
-            # 	Set self.head to current_head.next
+            # Set self.head to current_head.next
             current_head = self.head
             self.head = current_head.next
-            #  Return current_head.value
+            # Return current_head.value
             self.length = self.length - 1
             return current_head.value
 
@@ -143,11 +146,11 @@ class LinkedList:
 
 # Add Head
 
-ll2 = LinkedList()
-print(ll2)
-ll2.add_to_head(1)
-print(ll2)
-ll2.add_to_head(100)
-print(ll2)
-ll2.add_to_head(1000)
-print(ll2)
+# ll2 = LinkedList()
+# print(ll2)
+# ll2.add_to_head(1)
+# print(ll2)
+# ll2.add_to_head(100)
+# print(ll2)
+# ll2.add_to_head(1000)
+# print(ll2)

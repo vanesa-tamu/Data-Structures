@@ -9,6 +9,31 @@ This part of the project comprises two days:
 2. Implement the `in_order_print`, `bft_print`, and `dft_print` methods
    on the BSTNode class.
 """
+from stack.stack import Stack
+from singly_linked_list.singly_linked_list import LinkedList
+
+
+class Queue:
+    def __init__(self):
+        self.size = 0
+        self.storage = LinkedList()
+
+    def __str__(self):
+        return f'\n H: {self.storage.head.value} \n T: {self.storage.tail.value}'
+
+    def __len__(self):
+        return len(self.storage)
+
+    def enqueue(self, value):
+        self.size += 1
+        return self.storage.add_to_tail(value)
+
+    def dequeue(self):
+        if self.size == 0:
+            return None
+        else:
+            self.size -= 1
+            return self.storage.remove_head()  # remove most recent addition to head
 
 # note: the BSTNode class is a node
 
@@ -74,7 +99,7 @@ class BSTNode:
         else:
             # current_max = self.right.value  # if comment out still get right answer
             #                                 # b/c current_max is the value of the current BST node?
-            return self.right.get_max()
+            return self.right.get_max()  # max value gets returned
 
     # Call the function `fn` on the value of each node
 
@@ -91,17 +116,44 @@ class BSTNode:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self):
-        pass
+        # Goes to the leftest node on the tree
+        if self.left is not None:
+            self.left.in_order_print()
+        # print only after leftest node is reached
+        print(self.value)
+        # print next node with high value
+        if self.right is not None:
+            self.right.in_order_print()
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
+    # FIFO
     def bft_print(self):
-        pass
-
+        queue = Queue()
+        queue.enqueue(self)
+        # return queue
+        while len(queue) > 0:
+            curr = queue.dequeue()  # returns head
+            print(curr.value)
+            # was self.r and self.l and needed to be curr
+            if curr.right:
+                queue.enqueue(curr.right)
+            if curr.left:
+                queue.enqueue(curr.left)
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
+    # LIFO
+
     def dft_print(self):
-        pass
+        stack = Stack()
+        stack.push(self)
+        while len(stack) > 0:
+            curr = stack.pop()
+            print(curr)
+            if curr.left:
+                stack.push(curr.left)
+            if curr.right:
+                stack.push(curr.right)
 
     # Stretch Goals -------------------------
     # Note: Research may be required
@@ -132,15 +184,15 @@ bst.insert(1000)
 # print(bst)
 
 # contains
-print(bst.contains(1))  # True
-print(bst.contains(7))  # True
-print(bst.contains(800))  # False
+# print(bst.contains(1))  # True
+# print(bst.contains(7))  # True
+# print(bst.contains(800))  # False
 
 # get_max
-print(bst.get_max())  # 8
+# print(bst.get_max())  # 8
 
 
-
+# day 2
 # bst.bft_print()
 # bst.dft_print()
 
@@ -164,10 +216,34 @@ print(bst.get_max())  # 8
 #     # self.right.get_max()
 # return current_max
 
+b2 = BSTNode(99)
+b2.insert(59)
+b2.insert(26)
+b2.insert(100)
+b2.insert(110)
+print('\n IOP')
+print(b2.in_order_print())
+print('\n BFT')
+print(f'{b2.bft_print()}')
+print('\n DFT')
+print(f'{b2.dft_print()}')
 
-# if self.right is not None:
-#     # update current_max to be whatever is to the R of the node
-#     current_max = self.right.value
-#     print('hi')
-#     return current_max
+# LIFO Stack
+# def in_order_print(self):
+#     stack = Stack()
+#     curr_node = self
+#     stack.push(curr_node)
+#     while len(stack) > 0:
+#         curr_node = stack.pop()
+#         # push right
+#         if curr_node.right is not None:
+#             # if self.right is not None:
+#             stack.push(curr_node.right)
+#             print(f'current_node R: {curr_node.right}')
+#         # push left
+#         if curr_node.left is not None:
+#             # if self.left is not None:
+#             stack.push(curr_node.left)
+#             print(f'current_node L: {curr_node.left}')
+#         print(f'IOP: {curr_node.value}')
 

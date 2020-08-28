@@ -21,19 +21,22 @@ class Queue:
         self.size = 0
         self.storage = LinkedList()
 
+    def __str__(self):
+        return f'LLALA head: {self.storage.head} \n tail: {self.storage.tail}'
+
     def __len__(self):
-        return self.size
+        return len(self.storage)
 
     def enqueue(self, value):
-        self.storage.add_to_head(value)
+        self.storage.add_to_tail(value)
         self.size += 1
 
     def dequeue(self):
         if self.size == 0:
             return None
         else:
-            self.storage.remove_head()  # remove most recent addition to head
             self.size -= 1
+            return self.storage.remove_head()  # remove most recent addition to head
 
 # With Array as storage:
 

@@ -19,19 +19,22 @@ class Stack:
         # self.storage = ?
         self.storage = LinkedList()
 
+    def __str__(self):
+        return f'\n H: {self.storage.head} \n T: {self.storage.tail}'
+
     def __len__(self):
-        return self.size
+        return len(self.storage)
 
     def push(self, value):
-        self.storage.add_to_tail(value)
         self.size += 1
+        return self.storage.add_to_head(value)
 
     def pop(self):
         if self.size == 0:
             return None
         else:
             self.size -= 1
-            return self.storage.remove_tail()
+            return self.storage.remove_head()
 
 
 # With array as storage:
