@@ -160,7 +160,12 @@ class BSTNode:
 
     # Print Pre-order recursive DFT
     def pre_order_dft(self):
-        pass
+        curr = self
+        print(curr.value)
+        if curr.left:
+            curr.left.pre_order_dft()
+        if curr.right:
+            curr.right.pre_order_dft()
 
     # Print Post-order recursive DFT
     def post_order_dft(self):
@@ -227,7 +232,8 @@ print('\n BFT')
 print(f'{b2.bft_print()}')
 print('\n DFT')
 print(f'{b2.dft_print()}')
-
+print('\n Pre Order DFT')
+print(f'{b2.pre_order_dft()}')
 # LIFO Stack
 # def in_order_print(self):
 #     stack = Stack()
